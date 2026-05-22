@@ -1,0 +1,9 @@
+C:\Users\kamil\source\repos\truss_generator\truss_generator\bin\truss_generator.dll
+C:\Users\kamil\source\repos\truss_generator\truss_generator\bin\truss_generator.pdb
+C:\Users\kamil\source\repos\truss_generator\truss_generator\obj\x64\Debug\truss_generator.csproj.AssemblyReference.cache
+C:\Users\kamil\source\repos\truss_generator\truss_generator\obj\x64\Debug\truss_generator.Properties.Resources.resources
+C:\Users\kamil\source\repos\truss_generator\truss_generator\obj\x64\Debug\truss_generator.truss_generatorDialog.resources
+C:\Users\kamil\source\repos\truss_generator\truss_generator\obj\x64\Debug\truss_generator.csproj.GenerateResource.cache
+C:\Users\kamil\source\repos\truss_generator\truss_generator\obj\x64\Debug\truss_generator.csproj.CoreCompileInputs.cache
+C:\Users\kamil\source\repos\truss_generator\truss_generator\obj\x64\Debug\truss_generator.dll
+C:\Users\kamil\source\repos\truss_generator\truss_generator\obj\x64\Debug\truss_generator.pdb

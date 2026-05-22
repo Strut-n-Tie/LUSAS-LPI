@@ -1,0 +1,10 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="truss_generator/truss_generator.csproj" Id="8f65bb36-5c90-4f44-9a02-d1fb91790b18">
+    <Platform Solution="*|x64" Project="x64" />
+    <Platform Solution="*|x86" Project="Win32" />
+  </Project>
+</Solution>
