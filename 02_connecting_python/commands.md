@@ -1,56 +1,39 @@
 # Connecting Python to LUSAS
 
-## Environment Setup
+## 1. Internal Python Execution 
 
-### PowerShell
-
-```
-# Install required packages using pip
-pip install pywin32 numpy pandas
-```
-
-### Conda
-
-```
-# Create a new conda environment
-conda create -n LUSAS_env
-
-# Activate the environment
-conda activate LUSAS_env
-
-# Install required packages
-conda install pywin32 numpy pandas
-```
-
-## Basic External Python Script (test_lusas.py)
+### 1.1 User Toolbar Button (Single Line Command)
 
 ```python
-import win32com.client as win32
-
-# Connect to LUSAS (late binding - recommended)
-modeller = win32.dynamic.Dispatch("Lusas.Modeller.23.0")
-
-# Show the LUSAS window
-modeller.setVisible(True)
-
-# Enable manual UI interaction
-modeller.enableUI(True)
-
-# Print to LUSAS text window
-modeller.getTextWindow().writeLine("Hello world!")
+# Compressed single-line version (paste into User toolbar tab)
+lines = getSelection().getObjects("Line"); length = lines[0].getLineLength(); AfxMsgBox(f"Line length = {length}")
 ```
 
-## Run Script from Terminal
+This code only works, if a line is selected.
 
+### 1.2 User Menu Entry (UserMenu.vbs)
+
+**File location:** `%userprofile%\Documents\Lusas230\UserScripts\UserMenu.vbs`
+
+```
+$ENGINE=VBSCRIPT
+set myMenu = menu.appendMenu("User Menu")
+call myMenu.appendItem("Line length", "lines = getSelection().getObjects(""Line""); length = lines[0].getLineLength(); AfxMsgBox(f""Line length = {length}"");" )
+```
+
+## 2. Running Python Externally
+
+### 2.1 Create Conda Environment
 ```bash
-# Navigate to script directory
-cd C:\your\project\path
-
-# Run the script
-python test_lusas.py
+conda create -n LUSAS_env python
+conda activate LUSAS_env
+conda install pywin32 ipykernel numpy pandas
 ```
-
-## Fix Corrupted COM Cache
+To use Jupyter Notebook interface or Jupyter Lab install jupyter library:
+```bash
+conda install jupyter
+```
+### 2.2 Fix Corrupted COM Cache
 
 ```powershell
 # Press Windows + R, then type:
@@ -59,55 +42,16 @@ python test_lusas.py
 # Delete the folder matching the error message
 ```
 
-## Shell Invocation (Single Line for Toolbar)
+### 2.3 Shell Invocation (Single Line for Toolbar)
 
-### With visible command prompt:
-
-```python
-import subprocess; subprocess.Popen(["cmd", "/k", "py", r"C:\AKamil\test\lusas_test.py"], creationflags=subprocess.CREATE_NEW_CONSOLE)
-```
-
-### With hidden command prompt:
+#### 2.3.1 With visible command prompt:
 
 ```python
-import subprocess; subprocess.Popen(["py", r"C:\AKamil\test\lusas_test.py"], creationflags=subprocess.CREATE_NO_WINDOW)
+import subprocess; subprocess.Popen(["cmd", "/k", "py", r"C:\your\path\lusas_test.py"], creationflags=subprocess.CREATE_NEW_CONSOLE)
 ```
 
-## User Menu VBS Script (UserMenu.vbs)
-
-```vbscript
-$ENGINE=VBSCRIPT
-set myMenu = menu.appendMenu("User Menu")
-call myMenu.appendItem("My script (python)", "AfxMsgBox(""Hello from Python"")" )
-call myMenu.appendItem("My script (python, cmd shown)", "import subprocess; subprocess.Popen(['cmd', '/k', 'py', r'C:\\AKamil\\test\\lusas_test.py'], creationflags=subprocess.CREATE_NEW_CONSOLE)")
-call myMenu.appendItem("My script (python, cmd hidden)", "import subprocess; subprocess.Popen(['py', r'C:\\AKamil\\test\\lusas_test.py'], creationflags=subprocess.CREATE_NO_WINDOW)")
-```
-
-## User Toolbar Command (Single Line Example)
+#### 2.3.2 With hidden command prompt:
 
 ```python
-lines = getSelection().getObjects("Line"); length = lines[0].getLineLength(); getTextWindow().writeLine(f"Line length = {length}");
+import subprocess; subprocess.Popen(["py", r"C:\your\path\lusas_test.py"], creationflags=subprocess.CREATE_NO_WINDOW)
 ```
-
-## Jupyter/VS Code Setup
-
-```python
-# Required at start of each notebook
-import win32com.client as win32
-modeller = win32.dynamic.Dispatch("Lusas.Modeller.23.0")
-modeller.setVisible(True)
-modeller.enableUI(True)
-modeller.getTextWindow().writeLine("Hello world!")
-```
-
-## Helper Functions (from LUSAS GitHub)
-
-```python
-# Import helper functions
-from shared.LPI import *
-import shared.Helpers as Helpers
-
-# Create a line from coordinates
-Helpers.create_line_by_coordinates(0, 0, 0, 1, 0, 0)
-```
-

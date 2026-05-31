@@ -1,0 +1,7 @@
+$ENGINE=LPython
+getSessionFileGeometryData().setAllDefaults()
+getSessionFileGeometryData().setCreateMethod("straight")
+getSessionFileGeometryData().addCoords(0.0, 0.0, 0.0)
+getSessionFileGeometryData().addCoords(1.0, 0.0, 0.0)
+getSessionFileGeometryData().setLowerOrderGeometryType("coordinates")
+getDatabase().createLine(getSessionFileGeometryData())
